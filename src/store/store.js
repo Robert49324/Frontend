@@ -1,29 +1,23 @@
 
 import Vuex from 'vuex'
 
+
 const store = new Vuex.Store({
     state: {
-        AccessToken : "",
-        RefreshToken : "",
-        Role : "",
+        isAuth : false,
+        role : "",
     },
     getters : {
-        getAccessToken(state) {
-            return state.AccessToken
-        },
-        getRefreshToken(state) {
-            return state.RefreshToken
+        getIsAuth(state) {
+            return state.isAuth
         },
         getRole(state) {
             return state.Role
         }
     },
     mutations: {
-        SET_ACCESS_TOKEN(state, token) {
-            state.AccessToken = token
-        },
-        SET_REFRESH_TOKEN(state, token) {
-            state.RefreshToken = token
+        SET_IS_AUTH(state, isAuth) {
+            state.isAuth = isAuth
         },
         SET_ROLE(state, role) {
             state.Role = role

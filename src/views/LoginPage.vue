@@ -26,10 +26,14 @@
                 password: this.password,
                 email: this.email,
                 })
-                if (response.status == 201) {
-                  console.log(response.data)
-                  this.$store.commit('setUser', response.data)
-                  this.$router.push('home')
+                if (response.status == 200) {
+                  const data = response.data
+                  localStorage.setItem("access_token", data.access_token)
+                  localStorage.setItem("refresh_token", data.refresh_token)
+                  this.$store.commit('SET_IS_AUTH', true)
+                  this.$store.commit('SET_ROLE', data.role)
+                  this.$router.push('/')
+                  
                 }
             }      
             catch (err) {
