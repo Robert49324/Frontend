@@ -1,23 +1,26 @@
 <template>
   <Header />
-  <form @submit.prevent="submit" class="styled-form">
-    <label>
-      Email:
-      <input type="email" v-model="email" />
-    </label>
-    <label>
-      Password:
-      <input type="password" v-model="password" />
-    </label>
-    <button type="submit">Login</button>
-  </form>
+  <div>
+    <h1>Change password</h1>
+    <form @submit.prevent="submitForm" class="styled-form">
+      <label>
+        Password:
+        <input type="password" v-model="password" />
+      </label>
+      <label>
+        New password
+        <input type="password" v-model="newPassword" />
+      </label>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
 </template>
 
 <script>
-import { ref } from "vue";
-import { useRouter } from "vue-router";
-import { useStore } from "vuex";
 import Header from "../components/HeaderElement.vue";
+import { ref } from "vue";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 import axios from "../axios/axios";
 
 export default {
@@ -25,24 +28,23 @@ export default {
     Header,
   },
   setup() {
-    const router = useRouter();
-    const store = useStore();
-    const email = ref("");
     const password = ref("");
+    const newPassword = ref("");
+    const store = useStore();
+    const router = useRouter();
 
-    const submit = async () => {
+    const submitForm = async () => {
       try {
-        const response = await axios.post("/auth/login", {
-          password: password.value,
-          email: email.value,
-        });
+        console.log(store.state.user.email, password.value, newPassword.value);
+        const response = await axios.post(
+          "/auth/reset_password",
+          JSON.stringify({
+            "email": store.state.user.email,
+            "password": password.value,
+            "new_password": newPassword.value,
+          })
+        );
         if (response.status === 200) {
-          const data = response.data;
-          localStorage.setItem("access_token", data.access_token);
-          localStorage.setItem("refresh_token", data.refresh_token);
-          store.commit("SET_IS_AUTH", true);
-          store.commit("SET_USER", data.user);
-          store.commit("SET_ROLE", data.user.role);
           router.push("home");
         }
       } catch (err) {
@@ -51,9 +53,9 @@ export default {
     };
 
     return {
-      email,
       password,
-      submit,
+      newPassword,
+      submitForm,
     };
   },
 };

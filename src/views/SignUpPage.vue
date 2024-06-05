@@ -26,10 +26,10 @@
 </template>
 
 <script>
-import Header from '../components/HeaderElement.vue'
+import Header from "../components/HeaderElement.vue";
 export default {
   components: {
-    Header
+    Header,
   },
   data() {
     return {
@@ -42,20 +42,19 @@ export default {
   },
   methods: {
     async submit() {
-      try{
-        const response = await this.$axios.post('/auth/signup', {
+      try {
+        const response = await this.$axios.post("/auth/signup", {
           name: this.name,
           surname: this.surname,
           username: this.username,
           password: this.password,
           email: this.email,
-        })
+        });
         if (response.status == 201) {
-          this.$router.push('login')
+          this.$router.push("login");
         }
-      }      
-      catch (err) {
-        console.log(err)
+      } catch (err) {
+        console.log(err);
       }
     },
   },

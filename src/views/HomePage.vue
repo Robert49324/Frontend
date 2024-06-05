@@ -1,18 +1,15 @@
 <template>
-    <Header />
-
+  <Header />
 </template>
 
 <script>
-    import Header from '../components/HeaderElement.vue'
-    export default {
-        components: {
-            Header
-        },
-    }
-    
+import Header from "../components/HeaderElement.vue";
+export default {
+  components: {
+    Header,
+  },
+  methods: {},
+};
 </script>
-    
-<style>
 
-</style>
+<style></style>
