@@ -1,7 +1,5 @@
-const { defineConfig } = require('@vue/cli-service')
+const { defineConfig } = require("@vue/cli-service");
 module.exports = defineConfig({
-  // devServer: {
-  //   webSocketServer: false},
-  transpileDependencies: true
-  
-})
+    transpileDependencies: true,
+    publicPath: process.env.NODE_ENV === "production" ? "/REPO_NAME/" : "/",
+});

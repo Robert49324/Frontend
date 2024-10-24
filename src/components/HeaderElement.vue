@@ -1,32 +1,38 @@
 <template>
-    <header class="header">
-        <button @click="$router.push({name: 'home'})">Home</button>
-        <template v-if="!$store.state.isAuth">
-            <button @click="$router.push({name: 'login'})">Login</button>
-            <button @click="$router.push({name: 'signup'})">Sign Up</button>
-        </template>
-        <template v-else>
-            <button @click="logout">Logout</button>
-        </template>
-    </header>
+  <header class="header">
+    <button @click="navigateTo('home')">Home</button>
+    <template v-if="!isAuth">
+      <button @click="navigateTo('login')">Login</button>
+      <button @click="navigateTo('signup')">Sign Up</button>
+    </template>
+    <template v-else>
+      <button @click="navigateTo('profile')">Profile</button>
+      <button @click="navigateTo('createPage')">Create Page</button>
+      <button @click="navigateTo('pagesList')">Pages</button>
+    </template>
+  </header>
 </template>
 
 <script>
-    export default {
-        methods: {
-            logout() {
-                this.$store.commit('SET_IS_AUTH', false);
-                this.$store.commit('SET_ROLE', '');
-                localStorage.removeItem('access_token');
-                localStorage.removeItem('refresh_token');
-                this.$router.push({name: 'home'});
-            }
-        }
-    }
+import { computed, inject, ref } from "vue";
+import { useRouter } from "vue-router";
+import { useStore } from "vuex";
+
+export default {
+  setup() {
+    const router = useRouter();
+    const store = useStore();
+    const navigateTo = (name) => router.push({ name });
+
+    const isAuth = computed(() => store.state.isAuth);
+
+    return {
+      navigateTo,
+      isAuth,
+    };
+  },
+};
 </script>
 
-<style>
-
-</style>
-
+<style></style>
 
