@@ -1,60 +1,48 @@
 <template>
   <Header />
   <div>
-    <h1>Change password</h1>
+    <h1>Create Page</h1>
     <form @submit.prevent="submitForm" class="styled-form">
-      <label>
-        Password:
-        <input type="password" v-model="password" />
-      </label>
-      <label>
-        New password
-        <input type="password" v-model="newPassword" />
-      </label>
-      <button type="submit">Submit</button>
+      <input v-model="name" type="text" placeholder="Page name">
+      <input v-model="description" type="text" placeholder="Page description">
+      <button type="submit">Create</button>
     </form>
   </div>
 </template>
 
 <script>
-import Header from "../components/HeaderElement.vue";
-import { ref } from "vue";
-import { useStore } from "vuex";
-import { useRouter } from "vue-router";
-import axios from "../axios/axios";
+import { ref } from 'vue';
+import axios from '../axios/axios';
+import Header from '../components/HeaderElement.vue';
+import { useRouter } from 'vue-router';
+
 
 export default {
   components: {
-    Header,
+    Header
   },
   setup() {
-    const password = ref("");
-    const newPassword = ref("");
-    const store = useStore();
+    const name = ref('');
+    const description = ref('');
     const router = useRouter();
 
     const submitForm = async () => {
       try {
-        const response = await axios.post(
-          "/auth/reset_password",
-          {
-            email: store.state.user.email,
-            password: password.value,
-            new_password: newPassword.value,
-          }
-        );
-        if (response.status === 200) {
-          router.push("home");
+        const response = await axios.post('/page/', {
+          name: name.value,
+          description: description.value,
+        });
+        if (response.status === 201) {
+          router.push('pages');
         }
       } catch (err) {
         console.log(err);
       }
     };
 
-
     return {
-      password,
-      newPassword,
+      name,
+      description,
       submitForm,
     };
   },

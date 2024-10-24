@@ -12,37 +12,18 @@
     "core-js": "^3.8.3",
     "vue": "^3.2.13",
     "vue-router": "^4.3.2",
-    "vuex": "^4.1.0"
+    "vuex": "^4.1.0",
+    "vuex-persistedstate": "^4.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
-    "@babel/eslint-parser": "^7.12.16",
+    "@eslint/js": "^9.4.0",
     "@vue/cli-plugin-babel": "~5.0.0",
-    "@vue/cli-plugin-eslint": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-vue": "^8.0.3",
-    "prettier": "^2.4.1"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/vue3-essential",
-      "eslint:recommended",
-      "plugin:prettier/recommended"
-    ],
-    "parserOptions": {
-      "parser": "@babel/eslint-parser"
-    },
-    "rules": {
-      "no-unused-vars": "off",
-      "avoidEscape": 0,
-      "allowTemplateLiterals": 0
-    }
+    "eslint": "^9.4.0",
+    "eslint-plugin-vue": "^9.26.0",
+    "globals": "^15.4.0",
+    "prettier": "^3.3.2"
   },
   "browserslist": [
     "> 1%",

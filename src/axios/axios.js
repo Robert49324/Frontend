@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "http://localhost:8000", // /api/
+  baseURL: "/api/", // /api/
   withCredentials: true,
   headers: {
     Accept: "application/json",
@@ -10,10 +10,10 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   async (config) => {
-    config.headers = {
-      Authorization:
-        "Bearer " + JSON.stringify(localStorage.getItem("access_token")),
-    };
+    const token = localStorage.getItem("access_token");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
     return config;
   },
   (error) => {
@@ -41,6 +41,7 @@ instance.interceptors.response.use(
         return Promise.reject(_error);
       }
     }
+    return Promise.reject(error);
   }
 );
 

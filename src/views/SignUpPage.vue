@@ -26,39 +26,50 @@
 </template>
 
 <script>
+import { ref, defineComponent } from "vue";
+import { useRouter } from "vue-router";
+import axios from "../axios/axios";
 import Header from "../components/HeaderElement.vue";
-export default {
+
+export default defineComponent({
   components: {
     Header,
   },
-  data() {
-    return {
-      name: "",
-      surname: "",
-      username: "",
-      password: "",
-      email: "",
-    };
-  },
-  methods: {
-    async submit() {
+  setup() {
+    const router = useRouter();
+    const name = ref("");
+    const surname = ref("");
+    const username = ref("");
+    const password = ref("");
+    const email = ref("");
+
+    async function submit() {
       try {
-        const response = await this.$axios.post("/auth/signup", {
-          name: this.name,
-          surname: this.surname,
-          username: this.username,
-          password: this.password,
-          email: this.email,
+        const response = await axios.post("/auth/signup", {
+          name: name.value,
+          surname: surname.value,
+          username: username.value,
+          password: password.value,
+          email: email.value,
         });
-        if (response.status == 201) {
-          this.$router.push("login");
+        if (response.status === 201) {
+          router.push("login");
         }
       } catch (err) {
         console.log(err);
       }
-    },
+    }
+
+    return {
+      name,
+      surname,
+      username,
+      password,
+      email,
+      submit,
+    };
   },
-};
+});
 </script>
 
 <style scoped>
@@ -103,3 +114,4 @@ export default {
   background-color: #4cae4c;
 }
 </style>
+

@@ -5,6 +5,10 @@ import HomePage from "../views/HomePage.vue";
 import LoginPage from "@/views/LoginPage.vue";
 import ProfilePage from "@/views/ProfilePage.vue";
 import ChangePasswordPage from "@/views/ChangePasswordPage.vue";
+import CreatePage from "@/views/CreatePage.vue";
+import PagesList from "@/views/PagesList.vue";
+import PageDescriptionPage from "@/views/PageDescriptionPage.vue";
+import PostPage from "@/views/PostPage.vue";
 
 const routes = [
   {
@@ -38,10 +42,30 @@ const routes = [
     name: "profile",
   },
   {
-    path: "/change-password",
+    path: "/changePassword",
     component: ChangePasswordPage,
-    name: "change-password",
+    name: "changePassword",
   },
+  {
+    path: "/pages",
+    component: PagesList,
+    name: "pagesList",
+  },
+  {
+    path: "/pages/:id",
+    component: PageDescriptionPage,
+    name: "descriptionPage",
+  },
+  {
+    path: "/create_page",
+    component: CreatePage,
+    name: "createPage",
+  },
+  {
+    path: "/post/:id",
+    component: PostPage,
+    name: "postPage",
+  }
 ];
 
 const router = createRouter({
